@@ -1,20 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const userRoutes = require('./routes/userRoutes');
-const errorMiddleware = require('./middleware/errorMiddleware');
+import express from 'express';
+import { urlencoded, json } from 'body-parser';
+import { connect } from 'mongoose';
+import userRoutes from './routes/userRoutes';
+import errorMiddleware from './middleware/errorMiddleware';
+
 require('dotenv').config();
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 app.use('/users', userRoutes);
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGO_URI, {
+connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
