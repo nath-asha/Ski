@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const loginRoutes = require('./routes/loginRoutes');
+const dotenv = require('dotenv');
+
 const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
@@ -11,6 +14,7 @@ const Blog = require('./models/Blog');
 const userRoutes = require('./routes/userRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
+app.use('/api', loginRoutes);
 
 const app = express();
 
